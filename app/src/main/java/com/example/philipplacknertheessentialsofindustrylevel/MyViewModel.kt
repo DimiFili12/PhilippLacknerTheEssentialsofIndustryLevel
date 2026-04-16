@@ -8,18 +8,18 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
 class MyViewModel(
-    private val firebaseNoteDatabase: FirebaseNoteDatabase
+    private val noteDatabase: NoteDatabase
 ): ViewModel() {
     var note by mutableStateOf<Note?>(null)
         private set
 
     init {
-
+        loadNoteWithTitle("my note")
     }
 
     private fun loadNoteWithTitle(title: String) {
         viewModelScope.launch {
-            note = firebaseNoteDatabase.getNote(title = title)
+            note = noteDatabase.getNote(title = title)
         }
     }
 }

@@ -3,17 +3,23 @@ package com.example.philipplacknertheessentialsofindustrylevel
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
-class FirebaseNoteDatabase {
+
+interface NoteDatabase {
+    suspend fun saveNote(note: Note)
+    suspend fun getNote(title: String): Note?
+}
+
+class FirebaseNoteDatabase: NoteDatabase {
     val db = FirebaseFirestore.getInstance()
 
-    suspend fun saveNote(note: Note) {
+    override suspend fun saveNote(note: Note) {
         db.collection("notes")
             .document(note.title)
             .set(note)
             .await()
     }
 
-    suspend fun getNote(title: String): Note? {
+    override suspend fun getNote(title: String): Note? {
         return db.collection("notes")
             .document(title)
             .get()
