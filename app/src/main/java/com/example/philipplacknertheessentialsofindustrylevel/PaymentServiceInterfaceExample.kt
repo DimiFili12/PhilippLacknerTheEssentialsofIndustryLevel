@@ -7,3 +7,8 @@ interface onClickListener {
     fun onFingerUp()
 }
 
+
+interface onClickListenerSimpleFix {
+    fun onClick()
+    fun onFingerUp() {}
+}
