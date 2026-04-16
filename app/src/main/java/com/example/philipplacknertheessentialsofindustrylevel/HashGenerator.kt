@@ -2,14 +2,24 @@ package com.example.philipplacknertheessentialsofindustrylevel
 
 import org.apache.commons.codec.digest.DigestUtils
 
-class HashGenerator(private val algorithm: String) {
+interface HashGenerator {
+    fun generateHash(value: String): String
+}
 
-    fun generateHash(value: String): String {
-        return when (algorithm) {
-            "SHA256" -> DigestUtils.sha256Hex(value)
-            "SHA512" -> DigestUtils.sha512Hex(value)
-            "MD5" -> DigestUtils.md5Hex(value)
-            else -> throw IllegalArgumentException("Unsupported algorithm")
-        }
+class Sha256HashGenerator: HashGenerator {
+    override fun generateHash(value: String): String {
+        return DigestUtils.sha256Hex(value)
+    }
+}
+
+class Sha512HashGenerator: HashGenerator {
+    override fun generateHash(value: String): String {
+        return DigestUtils.sha512Hex(value)
+    }
+}
+
+class Md5HashGenerator: HashGenerator {
+    override fun generateHash(value: String): String {
+        return DigestUtils.md5Hex(value)
     }
 }
