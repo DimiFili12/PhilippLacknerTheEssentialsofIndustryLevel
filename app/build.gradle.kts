@@ -57,4 +57,6 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     implementation(libs.okhttp)
+
+    implementation(libs.commons.codec)
 }
